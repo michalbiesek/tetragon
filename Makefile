@@ -27,7 +27,7 @@ GOLANGCILINT_VERSION = $(shell golangci-lint version 2>/dev/null)
 # (To override it, run 'make JOBS=1' and similar.)
 JOBS ?= $(shell nproc)
 
-# Detect architecture, use TARGET_ARCH=amd64 or TARGET_ARCH=arm64
+# Detect architecture, use TARGET_ARCH=amd64, TARGET_ARCH=arm64 or TARGET_ARCH=riscv64
 # or let uname detect the appropriate arch for native build
 UNAME_M := $(shell uname -m)
 ifeq ($(UNAME_M),x86_64)
@@ -35,6 +35,9 @@ ifeq ($(UNAME_M),x86_64)
 endif
 ifeq ($(UNAME_M),aarch64)
 	TARGET_ARCH ?= arm64
+endif
+ifeq ($(UNAME_M),riscv64)
+	TARGET_ARCH ?= riscv64
 endif
 TARGET_ARCH ?= amd64
 
@@ -48,6 +51,9 @@ ifeq ($(TARGET_ARCH),amd64)
 endif
 ifeq ($(TARGET_ARCH),arm64)
 	BPF_TARGET_ARCH ?= arm64
+endif
+ifeq ($(TARGET_ARCH),riscv64)
+	BPF_TARGET_ARCH ?= riscv64
 endif
 BPF_TARGET_ARCH ?= x86
 

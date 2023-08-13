@@ -15,6 +15,9 @@ endif
 ifeq ($(UNAME_M),aarch64)
 	BPF_TARGET_ARCH ?= arm64
 endif
+ifeq ($(UNAME_M),riscv64)
+	BPF_TARGET_ARCH ?= riscv64
+endif
 BPF_TARGET_ARCH ?= x86
 
 ALIGNCHECKERDIR = alignchecker/
